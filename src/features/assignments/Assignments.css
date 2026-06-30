@@ -1,0 +1,40 @@
+/* Assignments.css — uses global CSS tokens from App.css */
+
+.assignments-page { padding: 2rem; }
+.assignments-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.assignment-card-full {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: border-color var(--transition);
+}
+.assignment-card-full:hover { border-color: var(--accent); }
+
+.assignment-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+}
+.assignment-card-top h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; }
+
+.assignment-course-tag {
+  font-size: 0.75rem;
+  color: var(--accent-hover);
+  background: rgba(99,102,241,0.15);
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+}
+
+.assignment-card-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+.assignment-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5; }
+
+.assignment-stats { display: flex; gap: 2rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.stat-item { display: flex; flex-direction: column; }
+.stat-item-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-item-value { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
+.stat-item-value.urgent { color: var(--danger); }

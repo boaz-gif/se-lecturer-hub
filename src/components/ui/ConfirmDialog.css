@@ -1,0 +1,47 @@
+.confirm-dialog {
+  background: var(--bg-surface, #1a2236);
+  border: 1px solid var(--border, #2a3550);
+  border-radius: 12px;
+  padding: 28px 32px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: confirmSlideIn 0.15s ease-out;
+}
+
+@keyframes confirmSlideIn {
+  from {
+    transform: scale(0.95) translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.confirm-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.confirm-dialog h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 8px;
+}
+
+.confirm-dialog p {
+  color: #94a3b8;
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}

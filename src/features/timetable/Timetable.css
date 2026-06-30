@@ -1,0 +1,124 @@
+/* Timetable.css — uses global CSS tokens from App.css */
+
+.timetable-page { padding: 2rem; }
+
+.timetable-controls {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.legend {
+  display: flex;
+  gap: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.timetable-grid {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.timetable-header {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 1fr);
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.day-label {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-left: 1px solid var(--border);
+}
+
+.timetable-row {
+  display: grid;
+  grid-template-columns: 80px repeat(5, 1fr);
+  border-bottom: 1px solid var(--border);
+  min-height: 80px;
+}
+
+.timetable-row:last-child {
+  border-bottom: none;
+}
+
+.time-label {
+  padding: 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.timetable-cell {
+  border-left: 1px solid var(--border);
+  position: relative;
+  padding: 4px;
+}
+
+.timetable-event {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  color: white;
+  font-size: 0.8rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.timetable-event:hover {
+  transform: scale(1.02);
+  z-index: 20;
+}
+
+.timetable-event strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.timetable-event span {
+  font-size: 0.7rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .timetable-header, .timetable-row {
+    grid-template-columns: 60px repeat(5, 1fr);
+  }
+  .day-label {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  .time-label {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+  }
+}

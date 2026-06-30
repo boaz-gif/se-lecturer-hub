@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Lecturer Hub — Modernization Roadmap</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #111827;
+    --bg-card: #1a2236;
+    --bg-card-hover: #1f2a42;
+    --border: #2a3550;
+    --border-accent: #3b82f6;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-blue: #3b82f6;
+    --accent-purple: #8b5cf6;
+    --accent-green: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-red: #ef4444;
+    --accent-cyan: #06b6d4;
+    --accent-pink: #ec4899;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ─── Header ─── */
+  .doc-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .doc-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .doc-header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e2e8f0, #93c5fd, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .doc-header .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .doc-header .meta {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .meta-badge .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ─── Nav ─── */
+  .doc-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(10,14,26,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    z-index: 100;
+    overflow-x: auto;
+  }
+
+  .doc-nav ul {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .doc-nav li a {
+    display: block;
+    padding: 14px 18px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .doc-nav li a:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent-blue);
+  }
+
+  /* ─── Main Content ─── */
+  .doc-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+
+  section {
+    margin-bottom: 80px;
+    scroll-margin-top: 60px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  h2 .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 32px 0 12px;
+    color: var(--text-primary);
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    color: var(--text-secondary);
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  /* ─── Phase Cards ─── */
+  .phase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  .phase-card.phase-1::before { background: var(--accent-red); }
+  .phase-card.phase-2::before { background: var(--accent-amber); }
+  .phase-card.phase-3::before { background: var(--accent-blue); }
+  .phase-card.phase-4::before { background: var(--accent-green); }
+
+  .phase-card h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .phase-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .phase-1 .phase-tag { background: rgba(239,68,68,0.15); color: var(--accent-red); }
+  .phase-2 .phase-tag { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+  .phase-3 .phase-tag { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+  .phase-4 .phase-tag { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+
+  /* ─── File Tree ─── */
+  .file-tree {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+
+  .file-tree .folder { color: var(--accent-blue); font-weight: 500; }
+  .file-tree .file { color: var(--text-secondary); }
+  .file-tree .file.added { color: var(--accent-green); }
+  .file-tree .file.removed { color: var(--accent-red); text-decoration: line-through; }
+  .file-tree .file.modified { color: var(--accent-amber); }
+  .file-tree .indent { padding-left: 20px; }
+  .file-tree .comment { color: var(--text-muted); }
+
+  /* ─── Code Blocks ─── */
+  pre {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  :not(pre) > code {
+    background: rgba(59,130,246,0.1);
+    color: #93c5fd;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .code-comment { color: #6b7280; }
+  .code-keyword { color: #c084fc; }
+  .code-string { color: #86efac; }
+  .code-func { color: #fbbf24; }
+  .code-type { color: #67e8f9; }
+  .code-prop { color: #fca5a5; }
+
+  /* ─── Diff View ─── */
+  diff-add { color: var(--accent-green); }
+  diff-remove { color: var(--accent-red); }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+
+  th {
+    background: var(--bg-card);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-primary);
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .status-done { color: var(--accent-green); font-weight: 500; }
+  .status-wip { color: var(--accent-amber); font-weight: 500; }
+  .status-todo { color: var(--text-muted); }
+
+  /* ─── Callout Boxes ─── */
+  .callout {
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .callout-info {
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+
+  .callout-warning {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.25);
+  }
+
+  .callout-danger {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+  }
+
+  .callout-success {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.25);
+  }
+
+  .callout p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  /* ─── Step List ─── */
+  .step-list {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+  }
+
+  .step-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 16px 16px 16px 56px;
+    margin: 8px 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .step-list li strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .step-list li p {
+    margin: 0;
+    font-size: 0.88rem;
+  }
+
+  /* ─── Checkbox List ─── */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .checklist li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+  }
+
+  .checklist li::before {
+    content: '☐';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+
+  /* ─── Before/After ─── */
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .before-after > div {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+  }
+
+  .before-after .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .before-after .before .label { color: var(--accent-red); }
+  .before-after .after .label { color: var(--accent-green); }
+
+  .before-after pre {
+    margin: 0;
+    padding: 12px;
+    font-size: 0.78rem;
+  }
+
+  /* ─── Priority Matrix ─── */
+  .priority-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+  }
+
+  .priority-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .priority-dot.critical { background: var(--accent-red); }
+  .priority-dot.high { background: var(--accent-amber); }
+  .priority-dot.medium { background: var(--accent-blue); }
+  .priority-dot.low { background: var(--accent-green); }
+
+  .priority-label {
+    font-weight: 600;
+    min-width: 80px;
+    font-size: 0.9rem;
+  }
+
+  .priority-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  /* ─── Footer ─── */
+  .doc-footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .doc-header { padding: 40px 20px; }
+    .doc-header h1 { font-size: 2rem; }
+    .doc-content { padding: 40px 20px; }
+    .doc-nav { padding: 0 16px; }
+    .before-after { grid-template-columns: 1fr; }
+    h2 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<header class="doc-header">
+  <h1>⚡ SE Lecturer Hub — Modernization Roadmap</h1>
+  <p class="subtitle">
+    A structured plan to transform the app from a no-build prototype into a production-ready, scalable SPA — without losing what already works.
+  </p>
+  <div class="meta">
+    <span class="meta-badge"><span class="dot" style="background:var(--accent-red)"></span> 4 Phases</span>
+    <span class="meta-badge"><span class="dot" style="background:var(--accent-blue)"></span> 8 Improvements</span>
+    <span class="meta-badge"><span class="dot" style="background:var(--accent-green)"></span> ~29 Files Affected</span>
+    <span class="meta-badge">📅 Today: June 28, 2026</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<nav class="doc-nav">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#current-state">Current State</a></li>
+    <li><a href="#target-state">Target State</a></li>
+    <li><a href="#phase-1">Phase 1 — Critical Fixes</a></li>
+    <li><a href="#phase-2">Phase 2 — Architecture</a></li>
+    <li><a href="#phase-3">Phase 3 — Build Setup</a></li>
+    <li><a href="#phase-4">Phase 4 — Polish</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- MAIN CONTENT -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<main class="doc-content">
+
+<!-- ─── SECTION 1: Overview ─── -->
+<section id="overview">
+  <h2><span class="section-num">1</span> Overview</h2>
+  <p>
+    This document outlines a modernization plan for the <strong>SE Lecturer Productivity Hub</strong> — a React + TypeScript SPA for university lecturers. The app currently works as a no-build prototype using <code>esm.sh</code> CDN imports. This roadmap defines where we are, where we're going, and exactly how to get there.
+  </p>
+
+  <div class="callout callout-info">
+    <span class="callout-icon">💡</span>
+    <p><strong>Goal:</strong> Evolve from "works on my machine" prototype to a well-architected, developer-friendly application that's easy to extend, deploy, and maintain — while preserving all existing functionality and the current visual design.</p>
+  </div>
+
+  <h3>Priority Matrix</h3>
+  <div class="priority-row">
+    <span class="priority-dot critical"></span>
+    <span class="priority-label">Critical</span>
+    <span class="priority-desc">Broken imports, runtime crashes — fix immediately</span>
+  </div>
+  <div class="priority-row">
+    <span class="priority-dot high"></span>
+    <span class="priority-label">High</span>
+    <span class="priority-desc">Code quality, DRY principles, developer experience</span>
+  </div>
+  <div class="priority-row">
+    <span class="priority-dot medium"></span>
+    <span class="priority-label">Medium</span>
+    <span class="priority-desc">Build tooling, deployment readiness</span>
+  </div>
+  <div class="priority-row">
+    <span class="priority-dot low"></span>
+    <span class="priority-label">Low</span>
+    <span class="priority-desc">UX polish, tests, nice-to-haves</span>
+  </div>
+</section>
+
+<!-- ─── SECTION 2: Current State ─── -->
+<section id="current-state">
+  <h2><span class="section-num">2</span> Current State</h2>
+
+  <h3>What Works Well</h3>
+  <ul class="checklist">
+    <li>Clean feature-based folder structure (13 features, each with co-located CSS)</li>
+    <li>Strong TypeScript domain model with 10 well-defined interfaces in <code>store.ts</code></li>
+    <li>Rich UX: Kanban board, calendar view, mood tracking, SMART goal breakdown, streak calculation</li>
+    <li>Consistent UI patterns across all views (modals, stats bars, filters, empty states)</li>
+    <li>localStorage persistence with seed data initialization</li>
+    <li>Zero-config startup — open <code>index.html</code> and it runs</li>
+  </ul>
+
+  <h3>What Needs Attention</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Issue</th>
+        <th>Severity</th>
+        <th>Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Accountability</code> feature imported but missing</td>
+        <td class="status-done" style="color:var(--accent-red)">Critical</td>
+        <td>Runtime crash — app won't load</td>
+      </tr>
+      <tr>
+        <td>No build tooling (CDN-only)</td>
+        <td class="status-done" style="color:var(--accent-amber)">High</td>
+        <td>No HMR, no bundling, hard to deploy</td>
+      </tr>
+      <tr>
+        <td>Repetitive data-fetching in every component</td>
+        <td class="status-done" style="color:var(--accent-amber)">High</td>
+        <td>~13 duplicated <code>useEffect + getStore</code> patterns</td>
+      </tr>
+      <tr>
+        <td>No form validation</td>
+        <td class="status-done" style="color:var(--accent-blue)">Medium</td>
+        <td>Users can save incomplete/invalid data</td>
+      </tr>
+      <tr>
+        <td>No delete confirmation</td>
+        <td class="status-done" style="color:var(--accent-blue)">Medium</td>
+        <td>Accidental data loss</td>
+      </tr>
+      <tr>
+        <td>14 CSS files with no shared design tokens</td>
+        <td class="status-done" style="color:var(--accent-blue)">Medium</td>
+        <td>Inconsistent colors, hard to theme</td>
+      </tr>
+      <tr>
+        <td>No tests</td>
+        <td class="status-done" style="color:var(--text-muted)">Low</td>
+        <td>Streak calc, filtering, date edge cases untested</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Current File Structure</h3>
+  <div class="file-tree">
+    <span class="folder">📁 SE-Lecturer-Hub/</span><br>
+    <span class="indent"><span class="file">index.html</span> <span class="comment">— Entry point with import map</span></span><br>
+    <span class="indent"><span class="folder">📁 src/</span></span><br>
+    <span class="indent"><span class="indent"><span class="file">App.tsx</span> <span class="comment">— Root component, view router</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">App.css</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">index.tsx</span> <span class="comment">— ReactDOM render</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">store.ts</span> <span class="comment">— Types + localStorage persistence</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="folder">📁 components/</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file">Dashboard.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file">Sidebar.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="folder">📁 features/</span> <span class="comment">— 12 feature modules</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 analytics/</span> <span class="file">Analytics.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 assignments/</span> <span class="file">Assignments.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 journal/</span> <span class="file">Journal.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 labtracker/</span> <span class="file">LabTracker.tsx</span> <span class="comment">⚠️ Missing CSS</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 lecturenotes/</span> <span class="file">LectureNotes.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 resources/</span> <span class="file">Resources.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 settings/</span> <span class="file">Settings.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 smartgoals/</span> <span class="file">SmartGoals.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 students/</span> <span class="file">Students.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 tasks/</span> <span class="file">Tasks.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 timetable/</span> <span class="file">Timetable.tsx + .css</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 accountability/</span> <span class="comment">❌ MISSING — imported in App.tsx but does not exist</span></span></span></span><br>
+  </div>
+</section>
+
+<!-- ─── SECTION 3: Target State ─── -->
+<section id="target-state">
+  <h2><span class="section-num">3</span> Target State</h2>
+  <p>After all 4 phases, the application will look like this:</p>
+
+  <div class="file-tree">
+    <span class="folder">📁 SE-Lecturer-Hub/</span><br>
+    <span class="indent"><span class="file added">package.json</span> <span class="comment">— Dependencies & scripts</span></span><br>
+    <span class="indent"><span class="file added">vite.config.ts</span> <span class="comment">— Vite configuration</span></span><br>
+    <span class="indent"><span class="file added">tsconfig.json</span> <span class="comment">— TypeScript strict config</span></span><br>
+    <span class="indent"><span class="file added">.env</span> <span class="comment">— Environment variables</span></span><br>
+    <span class="indent"><span class="file">index.html</span> <span class="comment">— Simplified entry (no import map)</span></span><br>
+    <span class="indent"><span class="folder">📁 src/</span></span><br>
+    <span class="indent"><span class="indent"><span class="file">main.tsx</span> <span class="comment">— Renamed from index.tsx</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">App.tsx</span> <span class="comment">— With React Router</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">App.css</span> <span class="comment">— CSS variables (design tokens)</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">hooks/useStore.ts</span> <span class="comment">— Shared data hook</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">hooks/useConfirm.ts</span> <span class="comment">— Delete confirmation hook</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">components/ui/</span> <span class="comment">— Shared UI primitives</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">Modal.tsx</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">ConfirmDialog.tsx</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">StatsBar.tsx</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">EmptyState.tsx</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">components/Dashboard.tsx</span> <span class="comment">— Simplified (uses hooks)</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">components/Sidebar.tsx</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file">store.ts</span> <span class="comment">— Unchanged (already good)</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">utils/validation.ts</span> <span class="comment">— Form validation helpers</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="folder">📁 features/</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">accountability/Accountability.tsx + .css</span> <span class="comment">— New feature</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 journal/</span> <span class="file">Journal.tsx</span> <span class="comment">— Uses useStore hook</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 tasks/</span> <span class="file">Tasks.tsx</span> <span class="comment">— Uses useStore hook</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="folder">📁 smartgoals/</span> <span class="file">SmartGoals.tsx</span> <span class="comment">— Uses useStore hook</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="comment">... (all other features same pattern)</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="file added">📁 __tests__/</span> <span class="comment">— Unit tests</span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">journal.test.ts</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">tasks.test.ts</span></span></span></span><br>
+    <span class="indent"><span class="indent"><span class="indent"><span class="file added">goals.test.ts</span></span></span></span><br>
+  </div>
+
+  <div class="callout callout-success">
+    <span class="callout-icon">🎯</span>
+    <p><strong>Key principle:</strong> The domain model (<code>store.ts</code>), the visual design (CSS), and the feature logic are all preserved. We're improving the <em>scaffolding</em> around them, not rewriting the features.</p>
+  </div>
+</section>
+
+<!-- ─── SECTION 4: PHASE 1 — Critical Fixes ─── -->
+<section id="phase-1">
+  <h2><span class="section-num">4</span> Phase 1 — Critical Fixes</h2>
+  <p>These are showstoppers that prevent the app from working correctly. Do these first.</p>
+
+  <!-- ─── Task 1.1 ─── -->
+  <div class="phase-card phase-1">
+    <h3><span class="phase-tag">Task 1.1</span> &nbsp; Fix Missing Accountability Feature</h3>
+    <p><strong>Problem:</strong> <code>App.tsx</code> line 16 imports <code>Accountability</code> from <code>./features/accountability/Accountability</code>, but that file doesn't exist. The app will crash at runtime.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create the missing feature as a placeholder page with a "Coming Soon" state. This unblocks the app immediately. The feature can be fully designed later.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/features/accountability/Accountability.tsx</span> <span class="comment">— NEW</span><br>
+      <span class="file added">src/features/accountability/Accountability.css</span> <span class="comment">— NEW</span><br>
+    </div>
+
+    <h4>Implementation</h4>
+    <pre><span class="code-keyword">import</span> <span class="code-type">React</span> <span class="code-keyword">from</span> <span class="code-string">'react'</span>;
+<span class="code-keyword">import</span> <span class="code-string">'./Accountability.css'</span>;
+
+<span class="code-keyword">export default function</span> <span class="code-func">Accountability</span>() {
+  <span class="code-keyword">return</span> (
+    <span class="code-prop">&lt;div</span> <span class="code-type">className</span>=<span class="code-string">"accountability-page"</span><span class="code-prop">&gt;</span>
+      <span class="code-prop">&lt;div</span> <span class="code-type">className</span>=<span class="code-string">"page-header"</span><span class="code-prop">&gt;</span>
+        <span class="code-prop">&lt;h1&gt;</span>📋 Accountability<span class="code-prop">&lt;/h1&gt;</span>
+        <span class="code-prop">&lt;p</span> <span class="code-type">className</span>=<span class="code-string">"page-subtitle"</span><span class="code-prop">&gt;</span>Track commitments, check-ins, and peer accountability<span class="code-prop">&lt;/p&gt;</span>
+      <span class="code-prop">&lt;/div&gt;</span>
+      <span class="code-prop">&lt;div</span> <span class="code-type">className</span>=<span class="code-string">"empty-state"</span><span class="code-prop">&gt;</span>
+        <span class="code-prop">&lt;div</span> <span class="code-type">className</span>=<span class="code-string">"empty-icon"</span><span class="code-prop">&gt;</span>📋<span class="code-prop">&lt;/div&gt;</span>
+        <span class="code-prop">&lt;h3&gt;</span>Coming Soon<span class="code-prop">&lt;/h3&gt;</span>
+        <span class="code-prop">&lt;p&gt;</span>This feature is under development. Check back soon!<span class="code-prop">&lt;/p&gt;</span>
+      <span class="code-prop">&lt;/div&gt;</span>
+    <span class="code-prop">&lt;/div&gt;</span>
+  );
+}</pre>
+  </div>
+
+  <!-- ─── Task 1.2 ─── -->
+  <div class="phase-card phase-1">
+    <h3><span class="phase-tag">Task 1.2</span> &nbsp; Add Delete Confirmation Dialog</h3>
+    <p><strong>Problem:</strong> Deleting journal entries, tasks, goals, and assignments happens instantly with no confirmation. One wrong click = lost data.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create a reusable <code>ConfirmDialog</code> component and wire it into all delete actions across the app.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/components/ui/ConfirmDialog.tsx</span> <span class="comment">— NEW: Reusable confirmation modal</span><br>
+      <span class="file added">src/components/ui/ConfirmDialog.css</span> <span class="comment">— NEW</span><br>
+      <span class="file modified">src/features/journal/Journal.tsx</span> <span class="comment">— Use ConfirmDialog for delete</span><br>
+      <span class="file modified">src/features/tasks/Tasks.tsx</span> <span class="comment">— Use ConfirmDialog for delete</span><br>
+      <span class="file modified">src/features/smartgoals/SmartGoals.tsx</span> <span class="comment">— Use ConfirmDialog for delete</span><br>
+      <span class="file modified">src/features/assignments/Assignments.tsx</span> <span class="comment">— Use ConfirmDialog for delete</span><br>
+      <span class="file modified">src/features/students/Students.tsx</span> <span class="comment">— Use ConfirmDialog for delete</span><br>
+    </div>
+
+    <h4>Implementation Pattern</h4>
+    <pre><span class="code-comment">// ConfirmDialog.tsx — Simple, reusable</span>
+<span class="code-keyword">interface</span> <span class="code-type">ConfirmDialogProps</span> {
+  title: <span class="code-type">string</span>;
+  message: <span class="code-type">string</span>;
+  onConfirm: () =&gt; <span class="code-type">void</span>;
+  onCancel: () =&gt; <span class="code-type">void</span>;
+}
+
+<span class="code-comment">// Usage in any feature:</span>
+<span class="code-keyword">const</span> [confirmDelete, setConfirmDelete] = <span class="code-func">useState</span>&lt;<span class="code-type">string</span> | <span class="code-keyword">null</span>&gt;(<span class="code-keyword">null</span>);
+
+<span class="code-comment">// In delete handler:</span>
+setConfirmDelete(task.id);
+
+<span class="code-comment">// In JSX:</span>
+{confirmDelete &amp;&amp; (
+  &lt;<span class="code-type">ConfirmDialog</span>
+    title=<span class="code-string">"Delete Task"</span>
+    message=<span class="code-string">"This cannot be undone."</span>
+    onConfirm={() => { handleDelete(confirmDelete); setConfirmDelete(null); }}
+    onCancel={() => setConfirmDelete(null)}
+  /&gt;
+)}</pre>
+  </div>
+
+  <!-- ─── Task 1.3 ─── -->
+  <div class="phase-card phase-1">
+    <h3><span class="phase-tag">Task 1.3</span> &nbsp; Add Basic Form Validation</h3>
+    <p><strong>Problem:</strong> Forms only check for empty title. Users can submit dates in the past, negative minutes, empty milestone lists, etc.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create a small <code>validation.ts</code> utility with per-form validation functions. Show inline error messages.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/utils/validation.ts</span> <span class="comment">— NEW: Validation rules</span><br>
+      <span class="file modified">src/features/journal/Journal.tsx</span> <span class="comment">— Show error for invalid date</span><br>
+      <span class="file modified">src/features/tasks/Tasks.tsx</span> <span class="comment">— Validate due date &gt; today</span><br>
+      <span class="file modified">src/features/smartgoals/SmartGoals.tsx</span> <span class="comment">— Validate target date &gt; today</span><br>
+    </div>
+
+    <h4>Validation Rules</h4>
+    <table>
+      <thead>
+        <tr><th>Field</th><th>Rule</th><th>Error Message</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Title (all forms)</td><td>Required, min 1 char</td><td>"Title is required"</td></tr>
+        <tr><td>Due/Target Date</td><td>Not in past (for new items)</td><td>"Date must be today or later"</td></tr>
+        <tr><td>Time minutes</td><td>1–480 (max 8 hours)</td><td>"Minutes must be between 1 and 480"</td></tr>
+        <tr><td>Progress (goals)</td><td>0–100</td><td>"Progress must be 0–100"</td></tr>
+        <tr><td>Email (students)</td><td>Valid email format</td><td>"Please enter a valid email"</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ─── SECTION 5: PHASE 2 — Architecture ─── -->
+<section id="phase-2">
+  <h2><span class="section-num">5</span> Phase 2 — Architecture & DRY</h2>
+  <p>Eliminate code duplication and establish shared patterns across all 13 features.</p>
+
+  <!-- ─── Task 2.1 ─── -->
+  <div class="phase-card phase-2">
+    <h3><span class="phase-tag">Task 2.1</span> &nbsp; Create <code>useStore()</code> Custom Hook</h3>
+    <p><strong>Problem:</strong> Every feature component repeats these 3 lines:</p>
+    <pre><span class="code-keyword">const</span> [data, setData] = <span class="code-func">useState</span>&lt;<span class="code-type">AppData</span> | <span class="code-keyword">null</span>&gt;(<span class="code-keyword">null</span>);
+<span class="code-func">useEffect</span>(() =&gt; { <span class="code-func">getStore</span>().then(setData); }, []);
+<span class="code-keyword">if</span> (!data) <span class="code-keyword">return</span> &lt;<span class="code-type">div</span>&gt;Loading...&lt;/<span class="code-type">div</span>&gt;;</pre>
+    <p>That's ~40 lines duplicated across 13 components (520+ lines of boilerplate).</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create a single <code>useStore</code> hook that handles loading state, data fetching, and provides a typed setter.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/hooks/useStore.ts</span> <span class="comment">— NEW</span><br>
+      <span class="file removed">src/utils/store.ts</span> <span class="comment">— Remove getStore (keep types + saveStore + initializeStore)</span><br>
+      <span class="file modified">ALL feature components</span> <span class="comment">— Replace 3-line pattern with 1-line hook</span><br>
+    </div>
+
+    <h4>Before → After</h4>
+    <div class="before-after">
+      <div class="before">
+        <div class="label">❌ Before (every component)</div>
+        <pre><span class="code-keyword">const</span> [data, setData] = <span class="code-func">useState</span>&lt;<span class="code-type">AppData</span>&gt;(<span class="code-keyword">null</span>);
+<span class="code-keyword">const</span> [showModal, setShowModal] = <span class="code-func">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [editTask, setEditTask] = <span class="code-func">useState</span>&lt;<span class="code-type">PersonalTask</span>&gt;(<span class="code-keyword">null</span>);
+...
+<span class="code-func">useEffect</span>(() =&gt; { <span class="code-func">getStore</span>().then(setData); }, []);
+<span class="code-keyword">if</span> (!data) <span class="code-keyword">return</span> &lt;<span class="code-type">div</span>&gt;Loading...&lt;/<span class="code-type">div</span>&gt;;</pre>
+      </div>
+      <div class="after">
+        <div class="label">✅ After (every component)</div>
+        <pre><span class="code-keyword">const</span> { data, loading, refresh } = <span class="code-func">useStore</span>();
+<span class="code-keyword">const</span> [showModal, setShowModal] = <span class="code-func">useState</span>(<span class="code-keyword">false</span>);
+<span class="code-keyword">const</span> [editTask, setEditTask] = <span class="code-func">useState</span>&lt;<span class="code-type">PersonalTask</span>&gt;(<span class="code-keyword">null</span>);
+...
+<span class="code-keyword">if</span> (loading) <span class="code-keyword">return</span> &lt;<span class="code-type">div</span>&gt;Loading...&lt;/<span class="code-type">div</span>&gt;;</pre>
+      </div>
+    </div>
+
+    <h4>Hook Implementation</h4>
+    <pre><span class="code-keyword">import</span> { useState, useEffect } <span class="code-keyword">from</span> <span class="code-string">'react'</span>;
+<span class="code-keyword">import</span> { getStore, saveStore, AppData } <span class="code-keyword">from</span> <span class="code-string">'../utils/store'</span>;
+
+<span class="code-keyword">export function</span> <span class="code-func">useStore</span>() {
+  <span class="code-keyword">const</span> [data, setData] = <span class="code-func">useState</span>&lt;<span class="code-type">AppData</span> | <span class="code-keyword">null</span>&gt;(<span class="code-keyword">null</span>);
+  <span class="code-keyword">const</span> [loading, setLoading] = <span class="code-func">useState</span>(<span class="code-keyword">true</span>);
+
+  <span class="code-keyword">const</span> refresh = <span class="code-func">useCallback</span>(() =&gt; {
+    setLoading(<span class="code-keyword">true</span>);
+    <span class="code-func">getStore</span>().then(d =&gt; { setData(d); setLoading(<span class="code-keyword">false</span>); });
+  }, []);
+
+  <span class="code-func">useEffect</span>(() =&gt; { refresh(); }, [refresh]);
+
+  <span class="code-keyword">const</span> update = <span class="code-func">useCallback</span>(<span class="code-keyword">async</span> (updater: (<span class="code-type">prev</span>: <span class="code-type">AppData</span>) =&gt; <span class="code-type">AppData</span>) =&gt; {
+    <span class="code-keyword">const</span> newData = updater(data!);
+    setData(newData);
+    <span class="code-keyword">await</span> <span class="code-func">saveStore</span>(newData);
+  }, [data]);
+
+  <span class="code-keyword">return</span> { data, loading, update, refresh };
+}</pre>
+  </div>
+
+  <!-- ─── Task 2.2 ─── -->
+  <div class="phase-card phase-2">
+    <h3><span class="phase-tag">Task 2.2</span> &nbsp; Create Shared UI Components</h3>
+    <p><strong>Problem:</strong> Stats bars, empty states, filter bars, and page headers are reimplemented in every feature with slight inconsistencies.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Extract 4 reusable UI primitives into <code>src/components/ui/</code>:</p>
+
+    <table>
+      <thead><tr><th>Component</th><th>Props</th><th>Used By</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;PageHeader /&gt;</code></td><td>title, subtitle, action (button)</td><td>All 13 features</td></tr>
+        <tr><td><code>&lt;StatsBar /&gt;</code></td><td>stats[] (value, label, color?)</td><td>Journal, Tasks, Goals, Students, Analytics</td></tr>
+        <tr><td><code>&lt;EmptyState /&gt;</code></td><td>icon, title, message, action?</td><td>All features (empty states)</td></tr>
+        <tr><td><code>&lt;FilterBar /&gt;</code></td><td>searchQuery, filters[], viewToggle?</td><td>Journal, Tasks, Goals, Students</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/components/ui/PageHeader.tsx</span><br>
+      <span class="file added">src/components/ui/StatsBar.tsx</span><br>
+      <span class="file added">src/components/ui/EmptyState.tsx</span><br>
+      <span class="file added">src/components/ui/FilterBar.tsx</span><br>
+      <span class="file added">src/components/ui/Modal.tsx</span> <span class="comment">— Standardized modal wrapper</span><br>
+      <span class="file added">src/components/ui/ui.css</span> <span class="comment">— Shared component styles</span><br>
+      <span class="file modified">ALL feature components</span> <span class="comment">— Replace inline JSX with shared components</span><br>
+    </div>
+
+    <div class="callout callout-warning">
+      <span class="callout-icon">⚠️</span>
+      <p><strong>Important:</strong> Only extract components that are truly duplicated with identical or near-identical markup. Don't over-abstract. If a feature has a unique layout variation, keep it inline.</p>
+    </div>
+  </div>
+
+  <!-- ─── Task 2.3 ─── -->
+  <div class="phase-card phase-2">
+    <h3><span class="phase-tag">Task 2.3</span> &nbsp; Add CSS Design Tokens</h3>
+    <p><strong>Problem:</strong> Colors like <code>#10b981</code> (green), <code>#6366f1</code> (purple), <code>#ef4444</code> (red) are hardcoded in every CSS file. Changing the theme means editing 14 files.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create a single <code>App.css</code> with CSS custom properties (design tokens) and update all CSS files to reference them instead of hardcoded values.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file modified">src/App.css</span> <span class="comment">— Add CSS variables block</span><br>
+      <span class="file modified">ALL 13 feature CSS files</span> <span class="comment">— Replace hex codes with var() references</span><br>
+    </div>
+
+    <h4>Design Token System</h4>
+    <pre><span class="code-comment">/* App.css — Design Tokens */
+:root {
+  /* Colors */
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #06b6d4;
+  --color-purple: #8b5cf6;
+
+  /* Neutrals */
+  --bg-app: #0f172a;
+  --bg-surface: #1a2236;
+  --bg-elevated: #1f2a42;
+  --border: #2a3550;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+}</pre>
+
+    <h4>Usage Pattern</h4>
+    <div class="before-after">
+      <div class="before">
+        <div class="label">❌ Before</div>
+        <pre>.stat-pill {
+  background: #1a2236;
+  border: 1px solid #2a3550;
+  color: #10b981;
+}
+.progress-fill {
+  background: #6366f1;
+}</pre>
+      </div>
+      <div class="after">
+        <div class="label">✅ After</div>
+        <pre>.stat-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--color-success);
+}
+.progress-fill {
+  background: var(--color-purple);
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 6: PHASE 3 — Build Setup ─── -->
+<section id="phase-3">
+  <h2><span class="section-num">6</span> Phase 3 — Build Setup</h2>
+  <p>Introduce Vite for a proper development experience. This is the biggest structural change.</p>
+
+  <!-- ─── Task 3.1 ─── -->
+  <div class="phase-card phase-3">
+    <h3><span class="phase-tag">Task 3.1</span> &nbsp; Initialize Vite + React + TypeScript</h3>
+    <p><strong>Why:</strong> The current CDN-based approach works but has no hot module replacement, no bundling, no TypeScript compilation, and is hard to deploy. Vite gives us all of this with minimal config.</p>
+
+    <h4>What We'll Do — Step by Step</h4>
+    <ol class="step-list">
+      <li>
+        <strong>Install Vite</strong>
+        <p>Run <code>npm create vite@latest . -- --template react-ts</code> in the project root (with empty package.json). This scaffolds <code>vite.config.ts</code>, <code>tsconfig.json</code>, and updates <code>index.html</code>.</p>
+      </li>
+      <li>
+        <strong>Remove Import Map</strong>
+        <p>Delete the <code>&lt;script type="importmap"&gt;</code> block from <code>index.html</code>. Vite handles module resolution natively — no CDN needed.</p>
+      </li>
+      <li>
+        <strong>Update Entry Point</strong>
+        <p>Rename <code>src/index.tsx</code> → <code>src/main.tsx</code> (Vite convention). Update the <code>&lt;script&gt;</code> tag in <code>index.html</code> to point to <code>/src/main.tsx</code>.</p>
+      </li>
+      <li>
+        <strong>Move Store to Async Compatibility</strong>
+        <p>The current <code>window.persistentStorage</code> API (OPFS) is browser-specific. Vite doesn't change this, but ensure <code>store.ts</code> still works as-is. The async functions remain unchanged.</p>
+      </li>
+      <li>
+        <strong>Verify All Imports</strong>
+        <p>Run <code>npx tsc --noEmit</code> to check for TypeScript errors. Fix any issues (mostly just ensuring <code>.tsx</code> extensions are handled by Vite's resolver).</p>
+      </li>
+      <li>
+        <strong>Add npm Scripts</strong>
+        <p>Add to <code>package.json</code>: <code>"dev": "vite"</code>, <code>"build": "tsc &amp;&amp; vite build"</code>, <code>"preview": "vite preview"</code>.</p>
+      </li>
+    </ol>
+
+    <h4>New <code>package.json</code></h4>
+    <pre>{
+  <span class="code-prop">"name"</span>: <span class="code-string">"se-lecturer-hub"</span>,
+  <span class="code-prop">"private"</span>: <span class="code-keyword">true</span>,
+  <span class="code-prop">"version"</span>: <span class="code-string">"1.0.0"</span>,
+  <span class="code-prop">"type"</span>: <span class="code-string">"module"</span>,
+  <span class="code-prop">"scripts"</span>: {
+    <span class="code-prop">"dev"</span>: <span class="code-string">"vite"</span>,
+    <span class="code-prop">"build"</span>: <span class="code-string">"tsc &amp;&amp; vite build"</span>,
+    <span class="code-prop">"preview"</span>: <span class="code-string">"vite preview"</span>,
+    <span class="code-prop">"lint"</span>: <span class="code-string">"tsc --noEmit"</span>
+  },
+  <span class="code-prop">"dependencies"</span>: {
+    <span class="code-prop">"react"</span>: <span class="code-string">"^18.2.0"</span>,
+    <span class="code-prop">"react-dom"</span>: <span class="code-string">"^18.2.0"</span>
+  },
+  <span class="code-prop">"devDependencies"</span>: {
+    <span class="code-prop">"@types/react"</span>: <span class="code-string">"^18.2.0"</span>,
+    <span class="code-prop">"@types/react-dom"</span>: <span class="code-string">"^18.2.0"</span>,
+    <span class="code-prop">"@vitejs/plugin-react"</span>: <span class="code-string">"^4.0.0"</span>,
+    <span class="code-prop">"typescript"</span>: <span class="code-string">"^5.0.0"</span>,
+    <span class="code-prop">"vite"</span>: <span class="code-string">"^5.0.0"</span>
+  }
+}</pre>
+
+    <h4>New <code>vite.config.ts</code></h4>
+    <pre><span class="code-keyword">import</span> { defineConfig } <span class="code-keyword">from</span> <span class="code-string">'vite'</span>;
+<span class="code-keyword">import</span> react <span class="code-keyword">from</span> <span class="code-string">'@vitejs/plugin-react'</span>;
+
+<span class="code-keyword">export default</span> <span class="code-func">defineConfig</span>({
+  plugins: [<span class="code-func">react</span>()],
+  server: {
+    port: <span class="code-string">3000</span>,
+    open: <span class="code-keyword">true</span>,
+  },
+});</pre>
+
+    <h4>New <code>index.html</code></h4>
+    <pre><span class="code-keyword">&lt;!</span><span class="code-type">DOCTYPE</span> html&gt;
+&lt;html lang=<span class="code-string">"en"</span>&gt;
+  &lt;head&gt;
+    &lt;meta charset=<span class="code-string">"UTF-8"</span> /&gt;
+    &lt;meta name=<span class="code-string">"viewport"</span> content=<span class="code-string">"width=device-width, initial-scale=1.0"</span> /&gt;
+    &lt;title&gt;SE Lecturer Productivity Hub&lt;/title&gt;
+    &lt;link rel=<span class="code-string">"preconnect"</span> href=<span class="code-string">"https://fonts.googleapis.com"</span>&gt;
+    &lt;link href=<span class="code-string">"https://fonts.googleapis.com/css2?family=Inter:wght@300..800&amp;display=swap"</span> rel=<span class="code-string">"stylesheet"</span>&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=<span class="code-string">"root"</span>&gt;&lt;/div&gt;
+    &lt;script type=<span class="code-string">"module"</span> src=<span class="code-string">"/src/main.tsx"</span>&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+    <div class="callout callout-info">
+      <span class="callout-icon">💡</span>
+      <p><strong>Migration tip:</strong> Keep the old <code>index.html</code> as <code>index.cdn.html</code> as a fallback during migration. You can switch back instantly if needed.</p>
+    </div>
+  </div>
+
+  <!-- ─── Task 3.2 ─── -->
+  <div class="phase-card phase-3">
+    <h3><span class="phase-tag">Task 3.2</span> &nbsp; Add React Router for Deep Linking</h3>
+    <p><strong>Why:</strong> Currently, view state lives in <code>App.tsx</code> as <code>useState</code>. You can't bookmark or share a link to a specific view. React Router solves this.</p>
+
+    <h4>What We'll Do</h4>
+    <ol class="step-list">
+      <li>
+        <strong>Install</strong>
+        <p><code>npm install react-router-dom</code></p>
+      </li>
+      <li>
+        <strong>Refactor <code>App.tsx</code></strong>
+        <p>Replace the <code>switch(view)</code> pattern with <code>&lt;Routes&gt;</code> and <code>&lt;Route&gt;</code> components.</p>
+      </li>
+      <li>
+        <strong>Update <code>Sidebar.tsx</code> navigation</strong>
+        <p>Replace <code>onClick={() => onNavigate(view)}</code> with <code>&lt;Link to="/view"&gt;</code> or <code>useNavigate()</code>.</p>
+      </li>
+      <li>
+        <strong>Add <code>&lt;Navigate /&gt;</code> for default route</strong>
+        <p>Redirect <code>/</code> to <code>/dashboard</code>.</p>
+      </li>
+    </ol>
+
+    <h4>Refactored App.tsx</h4>
+    <pre><span class="code-keyword">import</span> { BrowserRouter, Routes, Route, Navigate } <span class="code-keyword">from</span> <span class="code-string">'react-router-dom'</span>;
+<span class="code-keyword">import</span> Sidebar <span class="code-keyword">from</span> <span class="code-string">'./components/Sidebar'</span>;
+<span class="code-keyword">import</span> Dashboard <span class="code-keyword">from</span> <span class="code-string">'./components/Dashboard'</span>;
+<span class="code-comment">// ... other imports</span>
+
+<span class="code-keyword">export default function</span> <span class="code-func">App</span>() {
+  <span class="code-keyword">return</span> (
+    &lt;<span class="code-type">BrowserRouter</span>&gt;
+      &lt;<span class="code-type">Routes</span>&gt;
+        &lt;<span class="code-type">Route</span> path=<span class="code-string">"/"</span> element={<span class="code-type">&lt;Layout /&gt;</span>}&gt;
+          &lt;<span class="code-type">Route</span> index element={<span class="code-type">&lt;Navigate</span> to=<span class="code-string">"/dashboard"</span> /&gt;} /&gt;
+          &lt;<span class="code-type">Route</span> path=<span class="code-string">"/dashboard"</span> element={<span class="code-type">&lt;Dashboard /&gt;</span>} /&gt;
+          &lt;<span class="code-type">Route</span> path=<span class="code-string">"/timetable"</span> element={<span class="code-type">&lt;Timetable /&gt;</span>} /&gt;
+          &lt;<span class="code-type">Route</span> path=<span class="code-string">"/students"</span> element={<span class="code-type">&lt;Students /&gt;</span>} /&gt;
+          <span class="code-comment">/* ... all other routes ... */</span>
+          &lt;<span class="code-type">Route</span> path=<span class="code-string">"*"</span> element={<span class="code-type">&lt;Navigate</span> to=<span class="code-string">"/dashboard"</span> /&gt;} /&gt;
+        &lt;/<span class="code-type">Route</span>&gt;
+      &lt;/<span class="code-type">Routes</span>&gt;
+    &lt;/<span class="code-type">BrowserRouter</span>&gt;
+  );
+}
+
+<span class="code-keyword">function</span> <span class="code-func">Layout</span>() {
+  <span class="code-keyword">return</span> (
+    &lt;<span class="code-type">div</span> className=<span class="code-string">"app-shell"</span>&gt;
+      &lt;<span class="code-type">Sidebar</span> /&gt;
+      &lt;<span class="code-type">main</span> className=<span class="code-string">"main-content"</span>&gt;
+        &lt;<span class="code-type">Outlet</span> /&gt;
+      &lt;/<span class="code-type">main</span>&gt;
+    &lt;/<span class="code-type">div</span>&gt;
+  );
+}</pre>
+  </div>
+</section>
+
+<!-- ─── SECTION 7: PHASE 4 — Polish ─── -->
+<section id="phase-4">
+  <h2><span class="section-num">7</span> Phase 4 — Polish & Quality</h2>
+  <p>Nice-to-haves that elevate the app from "functional" to "production-ready".</p>
+
+  <!-- ─── Task 4.1 ─── -->
+  <div class="phase-card phase-4">
+    <h3><span class="phase-tag">Task 4.1</span> &nbsp; Add Unit Tests for Core Logic</h3>
+    <p><strong>Why:</strong> The streak calculation, filtering logic, and date handling have edge cases that are easy to break during refactoring.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Add Vitest (Vite's native test runner) with tests for:</p>
+
+    <table>
+      <thead><tr><th>Module</th><th>What to Test</th></tr></thead>
+      <tbody>
+        <tr><td>Streak calculation</td><td>Consecutive days, empty entries, timezone edge cases</td></tr>
+        <tr><td>Task filtering</td><td>Combined status + priority + course + search filter</td></tr>
+        <tr><td>Goal progress</td><td>Milestone completion → percentage mapping</td></tr>
+        <tr><td>Date helpers</td><td>ISO date formatting, "today" detection</td></tr>
+        <tr><td>Store persistence</td><td>Save → reload → data integrity</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">vitest.config.ts</span> <span class="comment">— NEW</span><br>
+      <span class="file added">__tests__/journal.test.ts</span> <span class="comment">— NEW</span><br>
+      <span class="file added">__tests__/tasks.test.ts</span> <span class="comment">— NEW</span><br>
+      <span class="file added">__tests__/goals.test.ts</span> <span class="comment">— NEW</span><br>
+      <span class="file added">__tests__/store.test.ts</span> <span class="comment">— NEW</span><br>
+    </div>
+
+    <h4>Example Test — Streak Calculation</h4>
+    <pre><span class="code-keyword">import</span> { describe, it, expect } <span class="code-keyword">from</span> <span class="code-string">'vitest'</span>;
+<span class="code-keyword">import</span> { calculateStreak } <span class="code-keyword">from</span> <span class="code-string">'../src/utils/journal'</span>;
+
+<span class="code-func">describe</span>(<span class="code-string">'calculateStreak'</span>, () =&gt; {
+  <span class="code-func">it</span>(<span class="code-string">'returns 0 for empty entries'</span>, () =&gt; {
+    <span class="code-func">expect</span>(<span class="code-func">calculateStreak</span>([])).<span class="code-func">toBe</span>(<span class="code-string">0</span>);
+  });
+
+  <span class="code-func">it</span>(<span class="code-string">'counts consecutive days'</span>, () =&gt; {
+    <span class="code-keyword">const</span> entries = [
+      { date: <span class="code-string">'2025-06-28'</span> },
+      { date: <span class="code-string">'2025-06-27'</span> },
+      { date: <span class="code-string">'2025-06-26'</span> },
+    ];
+    <span class="code-comment">// Mock new Date() to return 2025-06-28</span>
+    vi.<span class="code-func">setSystemTime</span>(<span class="code-keyword">new</span> <span class="code-type">Date</span>(<span class="code-string">'2025-06-28'</span>));
+    <span class="code-func">expect</span>(<span class="code-func">calculateStreak</span>(entries)).<span class="code-func">toBe</span>(<span class="code-string">3</span>);
+  });
+
+  <span class="code-func">it</span>(<span class="code-string">'breaks streak on gap'</span>, () =&gt; {
+    <span class="code-keyword">const</span> entries = [
+      { date: <span class="code-string">'2025-06-28'</span> },
+      { date: <span class="code-string">'2025-06-26'</span> }, <span class="code-comment">// gap on 27th</span>
+    ];
+    vi.<span class="code-func">setSystemTime</span>(<span class="code-keyword">new</span> <span class="code-type">Date</span>(<span class="code-string">'2025-06-28'</span>));
+    <span class="code-func">expect</span>(<span class="code-func">calculateStreak</span>(entries)).<span class="code-func">toBe</span>(<span class="code-string">1</span>);
+  });
+});</pre>
+  </div>
+
+  <!-- ─── Task 4.2 ─── -->
+  <div class="phase-card phase-4">
+    <h3><span class="phase-tag">Task 4.2</span> &nbsp; Add Missing LabTracker CSS</h3>
+    <p><strong>Problem:</strong> <code>LabTracker.tsx</code> has no corresponding CSS file. The feature likely renders with broken/unstyled layout.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Create <code>LabTracker.css</code> following the same design patterns as other features (stats bar, filters, cards, modal).</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/features/labtracker/LabTracker.css</span> <span class="comment">— NEW</span><br>
+    </div>
+  </div>
+
+  <!-- ─── Task 4.3 ─── -->
+  <div class="phase-card phase-4">
+    <h3><span class="phase-tag">Task 4.3</span> &nbsp; Add Keyboard Shortcuts & Accessibility</h3>
+    <p><strong>Why:</strong> Power users will want to navigate quickly. Currently there's no keyboard support.</p>
+
+    <h4>What We'll Do</h4>
+    <ul class="checklist">
+      <li>Add <code>Escape</code> key to close modals (currently clicking outside works, but no keyboard shortcut)</li>
+      <li>Add <code>Ctrl+N</code> / <code>Cmd+N</code> to create new item in current view</li>
+      <li>Add ARIA labels to sidebar nav buttons</li>
+      <li>Add <code>role="dialog"</code> and <code>aria-modal="true"</code> to modals</li>
+      <li>Add focus trap to modals (Tab cycles within modal)</li>
+    </ul>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file added">src/hooks/useKeyboard.ts</span> <span class="comment">— NEW: Keyboard shortcut hook</span><br>
+      <span class="file modified">src/components/ui/Modal.tsx</span> <span class="comment">— Add focus trap + ARIA</span><br>
+      <span class="file modified">src/components/Sidebar.tsx</span> <span class="comment">— Add aria-labels</span><br>
+    </div>
+  </div>
+
+  <!-- ─── Task 4.4 ─── -->
+  <div class="phase-card phase-4">
+    <h3><span class="phase-tag">Task 4.4</span> &nbsp; Add Data Export / Import</h3>
+    <p><strong>Why:</strong> Users may want to back up their data or migrate between devices. Currently data is trapped in localStorage.</p>
+
+    <h4>What We'll Do</h4>
+    <p>Add "Export Data" (downloads JSON) and "Import Data" (upload JSON file) buttons in Settings view.</p>
+
+    <h4>Files Changed</h4>
+    <div class="file-tree">
+      <span class="file modified">src/features/settings/Settings.tsx</span> <span class="comment">— Add export/import UI</span><br>
+      <span class="file added">src/utils/exportData.ts</span> <span class="comment">— NEW: JSON download + parse helpers</span><br>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 8: Summary ─── -->
+<section id="summary">
+  <h2><span class="section-num">8</span> Summary</h2>
+
+  <h3>Phase Timeline</h3>
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>Tasks</th><th>Estimated Effort</th><th>Impact</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--accent-red)">Phase 1</strong> — Critical Fixes</td>
+        <td>3 tasks</td>
+        <td>~2 hours</td>
+        <td>App stops crashing, data safe</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent-amber)">Phase 2</strong> — Architecture</td>
+        <td>3 tasks</td>
+        <td>~3 hours</td>
+        <td>50% less boilerplate, consistent UI</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent-blue)">Phase 3</strong> — Build Setup</td>
+        <td>2 tasks</td>
+        <td>~2 hours</td>
+        <td>HMR, routing, deployable builds</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--accent-green)">Phase 4</strong> — Polish</td>
+        <td>4 tasks</td>
+        <td>~3 hours</td>
+        <td>Tests, a11y, data portability</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Total Impact</h3>
+  <div class="before-after">
+    <div class="before">
+      <div class="label">❌ Current State</div>
+      <ul style="padding-left:20px;color:var(--text-secondary);font-size:0.88rem;">
+        <li>App crashes on load (missing import)</li>
+        <li>13 components duplicate data-fetching logic</li>
+        <li>14 CSS files with hardcoded colors</li>
+        <li>No form validation</li>
+        <li>No delete confirmation</li>
+        <li>No build tooling</li>
+        <li>Cannot bookmark/share views</li>
+        <li>LabTracker has no styles</li>
+      </ul>
+    </div>
+    <div class="after">
+      <div class="label">✅ Target State</div>
+      <ul style="padding-left:20px;color:var(--text-secondary);font-size:0.88rem;">
+        <li>App loads cleanly, all 13 features work</li>
+        <li>1 hook handles all data fetching</li>
+        <li>1 design token system for all CSS</li>
+        <li>Inline validation with error messages</li>
+        <li>Confirmation dialog before delete</li>
+        <li>Vite dev server + production builds</li>
+        <li>Deep-linkable routes (/journal, /tasks, etc.)</li>
+        <li>LabTracker fully styled</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Recommended Execution Order</h3>
+  <ol class="step-list">
+    <li>
+      <strong>Phase 1.1</strong> — Fix Accountability import (5 min)
+      <p>Unblocks everything. Do this first.</p>
+    </li>
+    <li>
+      <strong>Phase 1.2</strong> — Add delete confirmation (30 min)
+      <p>Quick win, prevents data loss.</p>
+    </li>
+    <li>
+      <strong>Phase 1.3</strong> — Add form validation (45 min)
+      <p>Prevents bad data entry.</p>
+    </li>
+    <li>
+      <strong>Phase 2.1</strong> — Create useStore hook (30 min)
+      <p>Biggest code reduction. Do before touching features.</p>
+    </li>
+    <li>
+      <strong>Phase 2.3</strong> — Add CSS design tokens (45 min)
+      <p>Quick find-and-replace across all CSS files.</p>
+    </li>
+    <li>
+      <strong>Phase 2.2</strong> — Create shared UI components (1.5 hr)
+      <p>Refactor all features to use shared primitives.</p>
+    </li>
+    <li>
+      <strong>Phase 3.1</strong> — Initialize Vite (45 min)
+      <p>One-time setup, huge DX improvement.</p>
+    </li>
+    <li>
+      <strong>Phase 3.2</strong> — Add React Router (30 min)
+      <p>Enables deep linking.</p>
+    </li>
+    <li>
+      <strong>Phase 4.x</strong> — Polish tasks as needed
+      <p>Pick based on priority.</p>
+    </li>
+  </ol>
+
+  <div class="callout callout-success">
+    <span class="callout-icon">🚀</span>
+    <p><strong>Ready to start?</strong> Tell me which phase or task you'd like to implement first, and I'll write the exact code changes needed. You can also ask me to adjust this roadmap — add, remove, or reorder tasks based on your priorities.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<footer class="doc-footer">
+  <p>SE Lecturer Productivity Hub — Modernization Roadmap v1.0</p>
+  <p>Generated June 28, 2026 · Review and edit freely, then request implementation</p>
+</footer>
+
+</body>
+</html>

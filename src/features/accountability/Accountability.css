@@ -1,0 +1,92 @@
+/* Accountability.css — uses global CSS tokens from App.css */
+
+.accountability-page { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+.stats-bar { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.stat-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 110px;
+  gap: 0.25rem;
+}
+.stat-pill .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.stat-pill .stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.commitments-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.25rem; }
+
+.commit-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.commit-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); border-color: var(--accent); }
+
+.commit-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+.commit-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 0 0 0.35rem; }
+.commit-category {
+  font-size: 0.72rem; font-weight: 600;
+  padding: 0.15rem 0.5rem; border-radius: 4px;
+  display: inline-block; margin-right: 0.5rem;
+}
+.commit-frequency { font-size: 0.72rem; color: var(--text-muted); }
+
+.commit-status {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 0.2rem 0.6rem; border-radius: 4px; white-space: nowrap;
+}
+.commit-status.status-active { background: rgba(16,185,129,0.2); color: #34d399; }
+.commit-status.status-completed { background: rgba(99,102,241,0.2); color: #818cf8; }
+.commit-status.status-missed { background: rgba(239,68,68,0.2); color: #f87171; }
+
+.commit-description { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+.commit-meta { display: flex; gap: 1rem; font-size: 0.78rem; color: var(--text-muted); flex-wrap: wrap; }
+
+.commit-progress { display: flex; flex-direction: column; gap: 0.35rem; }
+.progress-track { height: 6px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s ease; }
+.progress-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+
+.recent-checkins { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.checkins-label { font-size: 0.72rem; color: var(--text-muted); }
+.checkins-dots { display: flex; gap: 0.3rem; }
+.checkin-dot {
+  font-size: 0.7rem; width: 20px; height: 20px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%; background: var(--surface-2); color: var(--text-muted);
+  border: 1px solid var(--border); cursor: default;
+}
+.checkin-dot.done { background: rgba(16,185,129,0.2); color: var(--success); border-color: rgba(16,185,129,0.3); }
+
+.commit-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.checkin-done-badge { font-size: 0.78rem; color: var(--success); font-weight: 600; }
+
+.checkin-form {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0.75rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.checkin-form select, .checkin-form input {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0.5rem 0.75rem;
+  color: var(--text-primary); font-family: inherit; font-size: 0.85rem;
+}
+.checkin-form select:focus, .checkin-form input:focus { outline: none; border-color: var(--accent); }
+.checkin-form-actions { display: flex; gap: 0.5rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accountability-page { padding: 1rem; }
+  .commitments-grid { grid-template-columns: 1fr; }
+  .stats-bar { justify-content: center; }
+}

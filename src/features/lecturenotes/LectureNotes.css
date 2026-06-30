@@ -1,0 +1,181 @@
+/* LectureNotes.css — uses global CSS tokens from App.css */
+
+.lecturenotes-page { padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+/* Filters */
+.filters-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.search-box { flex: 1; min-width: 250px; position: relative; }
+.search-icon { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 1rem; color: var(--text-muted); }
+.search-box input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: border-color var(--transition);
+}
+.search-box input:focus { outline: none; border-color: var(--accent); }
+
+.filter-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.filter-select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  min-width: 160px;
+  transition: border-color var(--transition);
+}
+.filter-select:focus { outline: none; border-color: var(--accent); }
+
+.view-toggle { display: flex; gap: 0.25rem; margin-left: auto; }
+.view-toggle button {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.15s ease;
+}
+.view-toggle button:hover { background: var(--border); color: var(--text-primary); }
+.view-toggle button.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+/* Notes Grid */
+.notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.25rem; }
+.note-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+.note-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+
+.note-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.note-course {
+  font-size: 0.7rem;
+  color: var(--accent-hover);
+  background: rgba(99,102,241,0.15);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.note-date { font-size: 0.75rem; color: var(--text-muted); }
+.note-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; }
+.note-topic { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; }
+
+.note-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.75rem; }
+.note-tag {
+  font-size: 0.65rem;
+  color: var(--success);
+  background: rgba(16,185,129,0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+.note-tag.more { color: var(--text-secondary); background: var(--surface-2); }
+
+.note-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.note-preview { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
+.linked-badge {
+  font-size: 0.7rem;
+  color: var(--warning);
+  background: rgba(245,158,11,0.15);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Notes List */
+.notes-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.note-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 300px;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.note-row:last-child { border-bottom: none; }
+.note-row:hover { background: rgba(99,102,241,0.05); }
+
+.note-col-date { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; }
+.note-day { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+.note-month { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+
+.note-col-main { display: flex; flex-direction: column; gap: 0.25rem; }
+.note-row-top { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.note-col-main .note-course { font-size: 0.65rem; }
+.note-col-main .note-topic { font-size: 0.75rem; color: var(--text-secondary); margin: 0; }
+.note-col-main .note-title { font-size: 0.95rem; margin: 0; color: var(--text-primary); }
+
+.note-tags-row { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.note-tags-row .note-tag { font-size: 0.6rem; }
+
+.note-col-preview { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; text-align: right; }
+.note-col-preview .note-preview { font-size: 0.75rem; color: var(--text-muted); font-style: italic; max-width: 280px; }
+.note-col-preview .linked-badge { font-size: 1rem; }
+
+/* Editor Section */
+.editor-section { margin-bottom: 1.5rem; }
+.editor-label { display: flex; flex-direction: column; gap: 0.5rem; }
+.editor-label span { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+.markdown-editor {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  color: var(--text-primary);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  min-height: 300px;
+  resize: vertical;
+}
+.markdown-editor:focus { outline: none; border-color: var(--accent); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .lecturenotes-page { padding: 1rem; }
+  .filters-bar { flex-direction: column; align-items: stretch; }
+  .filter-group { width: 100%; }
+  .filter-select { flex: 1; min-width: 0; }
+  .view-toggle { margin-left: 0; justify-content: flex-end; }
+  .note-row { grid-template-columns: 50px 1fr; grid-template-rows: auto auto; }
+  .note-col-preview { grid-column: 2; align-items: flex-start; text-align: left; }
+  .notes-grid { grid-template-columns: 1fr; }
+}
